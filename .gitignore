@@ -1,0 +1,13 @@
+*.pt
+*.pth
+*.ckpt
+data/
+!data/
+data/*
+!data/README.md
+datasets/
+logs/
+wandb/
+__pycache__/
+*.pyc
+.DS_Store
