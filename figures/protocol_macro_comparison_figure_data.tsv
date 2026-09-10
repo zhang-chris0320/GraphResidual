@@ -1,0 +1,16 @@
+protocol	candidate_size	ndcg10
+pair_disjoint	7	0.6567314873261578
+pair_disjoint	20	0.48352803367891134
+pair_disjoint	50	0.2488833459624611
+pair_disjoint	100	0.16853968860419075
+pair_disjoint	500	0.06773982805212071
+protein_disjoint	7	0.5793932557524477
+protein_disjoint	20	0.3332042078443367
+protein_disjoint	50	0.15894964802704878
+protein_disjoint	100	0.08572860166811395
+protein_disjoint	500	0.032787486910955954
+sequence_cluster_disjoint	7	0.5658926659557003
+sequence_cluster_disjoint	20	0.37975588408493444
+sequence_cluster_disjoint	50	0.184339371449485
+sequence_cluster_disjoint	100	0.11382717908795952
+sequence_cluster_disjoint	500	0.03454332746412627

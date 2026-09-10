@@ -1,0 +1,4 @@
+relation	block_dim
+mutation	64
+ptm	64
+pathway	64
