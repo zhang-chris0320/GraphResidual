@@ -1,0 +1,11 @@
+project_dir: PROJECT_ROOT
+benchmark:
+  clinvar: data_benchmark/clinvar_pathogenicity_esm_resolved
+  mutation_ptm: data_benchmark/mutation_ptm
+  split: test
+metrics:
+  ranking: [MRR, MAP, Hits@1, Hits@5, Hits@10, Recall@10, Recall@50, Recall@100, nDCG@10, nDCG@50]
+  classification: [AUROC, AUPRC, MCC, Macro_F1, Balanced_Accuracy]
+bootstrap:
+  seed: 42
+  iterations: 300
