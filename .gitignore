@@ -11,3 +11,8 @@ wandb/
 __pycache__/
 *.pyc
 .DS_Store
+figures/*.png
+figures/*.jpg
+figures/*.jpeg
+figures/*.svg
+figures/reproduced/
