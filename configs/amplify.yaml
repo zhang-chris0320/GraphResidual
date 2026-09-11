@@ -1,0 +1,27 @@
+# Release-facing configuration for the canonical AMPLIFY-120M P3 fusion.
+# The original P3 implementation is copied unchanged; this file records its
+# verified dimensions and fusion contract in a portable form.
+project_dir: PROJECT_ROOT
+out_dir: PROJECT_ROOT/work/amplify_graph_residual_p3
+backbone:
+  name: AMPLIFY-120M
+  hidden_dim: 640
+model:
+  graph_dim: 64
+  projection_input_dim: 64
+  projection_output_dim: 640
+  alignment_dim: 640
+  gate: scalar_sigmoid
+  alpha: sigmoid_bounded_positive
+  normalized_residual: true
+  preserve_input_sequence_norm: true
+training:
+  lambda_relation: 0.1
+  lambda_alignment: 0.05
+  lambda_preserve: 0.1
+  learning_rate: 0.0003
+  seed: 42
+protocol:
+  fusion_version: v2_fusion_coupled
+  selection_used_test: false
+  source_script: src/models/amplify_graph_residual.py
