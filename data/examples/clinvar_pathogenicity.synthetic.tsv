@@ -1,0 +1,4 @@
+mutation_id	protein_id	gene_symbol	reference_aa	mutation_position	alternate_aa	normalized_protein_change	clinical_significance_raw	label	disease_count	ptm_count	nearest_ptm_distance
+SYNTH_MUT_0001	SYNTH_PROT_0001	SYNTH1	A	10	V	p.A10V	synthetic_pathogenic	1	1	0	3
+SYNTH_MUT_0002	SYNTH_PROT_0002	SYNTH2	G	42	D	p.G42D	synthetic_benign	0	0	1	9999
+SYNTH_MUT_0003	SYNTH_PROT_0003	SYNTH3	L	7	P	p.L7P	synthetic_uncertain	0	1	0	5
