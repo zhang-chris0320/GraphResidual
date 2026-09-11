@@ -1,1 +1,1 @@
-from src.models.model import ResidualV2
+from .model import ResidualV2
