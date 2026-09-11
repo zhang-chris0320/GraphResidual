@@ -1,0 +1,37 @@
+{
+  "_name_": "AMPLIFY",
+  "architectures": [
+    "AMPLIFY"
+  ],
+  "att_bias": false,
+  "auto_map": {
+    "AutoConfig": "amplify.AMPLIFYConfig",
+    "AutoModel": "amplify.AMPLIFY"
+  },
+  "bos_token_id": 3,
+  "decoder_init_range": 0.02,
+  "dropout_prob": 0,
+  "embedding_init_range": 0.02,
+  "eos_token_id": 4,
+  "ffn_bias": false,
+  "hidden_act": "SwiGLU",
+  "hidden_size": 640,
+  "intermediate_size": 2560,
+  "layer_norm_after_embedding": false,
+  "layer_norm_before_last_layer": true,
+  "mask_token_id": 2,
+  "max_length": 2048,
+  "model_type": "AMPLIFY",
+  "norm_eps": 1e-05,
+  "num_attention_heads": 10,
+  "num_hidden_layers": 24,
+  "other_special_token_ids": null,
+  "pad_token_id": 0,
+  "pre_activation_layer_norm": true,
+  "rms_norm": true,
+  "torch_dtype": "float32",
+  "transformers_version": "4.38.2",
+  "unk_token_id": 1,
+  "vocab_path": "conf/tokenizer/amplify_vocab.txt",
+  "vocab_size": 27
+}
