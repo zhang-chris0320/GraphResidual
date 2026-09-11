@@ -2,7 +2,7 @@
 
 Graph-Residual is a relation-aware adaptation framework that integrates heterogeneous biological graph context into pretrained protein language-model embeddings through a bounded residual pathway.
 
-This repository provides separate implementations for ESM-2 and AMPLIFY-120M. The release is code-first: raw datasets, licensed graph databases, logs, model checkpoints, and generated pictures are not redistributed.
+This repository provides separate implementations for ESM-2 and AMPLIFY-120M. The release is code-first: raw datasets, licensed graph databases, logs, model checkpoints, and generated pictures are not redistributed. A small sanitized data contract, provenance manifest, schemas, and synthetic parser fixture are included under `data/`.
 
 ## Installation
 
@@ -36,6 +36,7 @@ GraphResidual/
 ├── configs/       # experiment configurations
 ├── scripts/       # training, evaluation, and utility entry points
 ├── checkpoints/   # checkpoint usage guidance; binaries stay outside Git
+├── data/          # sanitized schemas, provenance manifest, and synthetic fixture
 ├── docs/          # usage and data-access documentation
 ├── audit/         # release and implementation audit reports
 └── README.md
@@ -60,6 +61,8 @@ For AMPLIFY-120M, the independent P3 path projects graph features `64 → 640`, 
 
 The original biological resources are not redistributed. Obtain and license the required resources independently, then place the prepared assets in a project-assets directory outside the repository.
 
+The public `data/` directory contains only header-only schemas, a dataset provenance inventory, an embedding contract, and a synthetic three-row parser fixture; it is not a replacement for the real benchmark assets.
+
 Required resources include:
 
 - UniProt
@@ -71,7 +74,7 @@ Required resources include:
 - fixed 640-dimensional ESM-2 embeddings and validity masks
 - node mappings and compressed relation edge tables
 
-See [`docs/data_access.md`](docs/data_access.md) for the download, preprocessing, placement, and audit workflow. Do not upload raw or licensed data to GitHub.
+See [`data/README.md`](data/README.md) for the included public data contract and [`data/dataset_manifest.tsv`](data/dataset_manifest.tsv) for the server-provenance inventory. See [`docs/data_access.md`](docs/data_access.md) for the download, preprocessing, placement, and audit workflow. Do not upload raw or licensed data to GitHub.
 
 ## Checkpoints
 
@@ -109,13 +112,9 @@ The dispatcher requires a task name. Set a repository-relative project-assets di
 ```bash
 export PROJECT_ASSETS=../project-assets
 
-python scripts/evaluate.py mutation_ptm \
-  --project_dir "$PROJECT_ASSETS" \
-  --out_dir "$PROJECT_ASSETS/work/ranking-evaluation"
+python scripts/evaluate.py mutation_ptm --project_dir "$PROJECT_ASSETS" --out_dir "$PROJECT_ASSETS/work/ranking-evaluation"
 
-python scripts/evaluate.py clinvar \
-  --project_dir "$PROJECT_ASSETS" \
-  --out_dir "$PROJECT_ASSETS/work/clinvar-evaluation"
+python scripts/evaluate.py clinvar --project_dir "$PROJECT_ASSETS" --out_dir "$PROJECT_ASSETS/work/clinvar-evaluation"
 ```
 
 The evaluation contract includes AUROC, AUPRC, MCC, MRR, MAP, Hits@k, and nDCG metrics as applicable. Model and threshold selection is validation-only; reserve the test split for final reporting. `configs/evaluation.yaml` records the metric and bootstrap contract.
