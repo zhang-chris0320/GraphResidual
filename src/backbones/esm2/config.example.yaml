@@ -1,0 +1,21 @@
+project_dir: /root/autodl-tmp/bio/disease_mutation_ptm_gcl
+out_dir: /root/autodl-tmp/bio/disease_mutation_ptm_gcl/work/graph_esm2_residual_pretrain_v2
+model:
+  esm_dim: 640
+  graph_dim: 64
+  residual_hidden_dim: 256
+  output_dim: 640
+  beta_init: 0.0
+loss:
+  relation_weight: 1.0
+  preserve_weight: 0.1
+  residual_weight: 0.01
+training:
+  epochs: 20
+  batch_size: 1024
+  lr: 0.001
+  weight_decay: 0.00001
+  clip: 1.0
+  seed: 42
+  steps_per_epoch: 120
+  sanity: false
