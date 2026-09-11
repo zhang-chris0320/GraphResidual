@@ -1,5 +1,0 @@
-method	validation_ndcg10
-C1v2_ParameterMatchedMLP	0.6135607169596891
-C2v2_ShuffledGraph	0.5649119348552136
-C3v2_RandomGraph	0.5524116698506814
-G1_DiseaseOnly	0.6055738166788521
