@@ -1,0 +1,12 @@
+{
+  "status": "LOCKED",
+  "fusion_version": "v2_fusion_coupled",
+  "legacy_cache": "/root/autodl-tmp/bio/disease_mutation_ptm_gcl/work/amplify_generalization/05_graph_self_supervised/cache",
+  "legacy_outputs_overwritten": false,
+  "protein_relation_endpoint": "fused_sequence_graph_embedding",
+  "alignment_endpoint": "fused_sequence_graph_embedding",
+  "output_norm": "preserve_input_sequence_norm",
+  "minimum_gate_mean": 0.01,
+  "minimum_residual_norm": 0.001,
+  "selection_used_test": false
+}
