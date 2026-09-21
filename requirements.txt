@@ -4,3 +4,4 @@ torch
 scikit-learn
 matplotlib
 pyyaml
+huggingface_hub>=0.23
