@@ -4,6 +4,8 @@ Graph-Residual is a relation-aware adaptation framework that integrates heteroge
 
 This repository provides separate implementations for ESM-2 and AMPLIFY-120M. The release is code-first: raw datasets, licensed graph databases, logs, model checkpoints, and generated pictures are not redistributed. A small sanitized data contract, provenance manifest, schemas, and synthetic parser fixture are included under `data/`.
 
+Published model bundles are available on Hugging Face: [ESM2-GraphResidual-v2](https://huggingface.co/Marcochris/ESM2-GraphResidual-v2) and [AMPLIFY-120M-GraphResidual-v1](https://huggingface.co/Marcochris/AMPLIFY-120M-GraphResidual-v1). The companion dataset is [GraphResidual-data](https://huggingface.co/datasets/Marcochris/GraphResidual-data).
+
 ## Installation
 
 ### Clone repository
@@ -78,16 +80,21 @@ See [`data/README.md`](data/README.md) for the included public data contract and
 
 ## Checkpoints
 
-No Graph-Residual checkpoint binaries are bundled in this public repository, and no verified GraphResidual Hugging Face model URL is configured here. Obtain an approved, versioned checkpoint from the project maintainer or model registry, record its license and SHA-256 checksum, and keep the binary outside Git.
+Graph-Residual checkpoint binaries are kept outside this Git repository and published through Hugging Face:
 
-For a local checkpoint, use a path such as:
+- [ESM2-GraphResidual-v2](https://huggingface.co/Marcochris/ESM2-GraphResidual-v2) contains the ESM-2 backbone and `models/esm2/residual/graph_residual_v2.pt`.
+- [AMPLIFY-120M-GraphResidual-v1](https://huggingface.co/Marcochris/AMPLIFY-120M-GraphResidual-v1) contains the official AMPLIFY-120M backbone and the P3 Graph-Residual source. A separate trained P3 adapter checkpoint is not currently listed in that repository.
+
+Download the published ESM-2 checkpoint directly from Python:
 
 ```bash
-mkdir -p checkpoints
-cp ../approved-checkpoints/graph_residual_v2.pt checkpoints/
+python scripts/export_embeddings.py \
+  --project-dir /path/to/project-assets \
+  --checkpoint-repo Marcochris/ESM2-GraphResidual-v2 \
+  --out-dir /path/to/exported-embeddings
 ```
 
-The recommended registry and provenance workflow is documented in [`checkpoints/README.md`](checkpoints/README.md).
+For a local checkpoint, use `--checkpoint /path/to/checkpoint.pt` instead. The full registry and provenance workflow is documented in [`checkpoints/README.md`](checkpoints/README.md).
 
 ## Training
 
@@ -150,20 +157,3 @@ The current implementation depends on available graph context and prepared relat
 ## Path and command audits
 
 See [`audit/README_PATH_CHECK.md`](audit/README_PATH_CHECK.md) and [`audit/README_COMMAND_CHECK.md`](audit/README_COMMAND_CHECK.md) for the release checks.
-
-
-## Published model bundles
-
-The current release publishes verified model bundles on Hugging Face:
-
-- [ESM2-GraphResidual-v2](https://huggingface.co/Marcochris/ESM2-GraphResidual-v2) — ESM-2 backbone plus `models/esm2/residual/graph_residual_v2.pt`.
-- [AMPLIFY-120M-GraphResidual-v1](https://huggingface.co/Marcochris/AMPLIFY-120M-GraphResidual-v1) — official AMPLIFY-120M backbone bundle and Graph-Residual P3 source. A separate trained P3 adapter checkpoint is not currently listed there.
-- [GraphResidual-data](https://huggingface.co/datasets/Marcochris/GraphResidual-data) — companion dataset repository.
-
-Download the published ESM-2 checkpoint during embedding export:
-
-```bash
-python scripts/export_embeddings.py --project-dir /path/to/project-assets --checkpoint-repo Marcochris/ESM2-GraphResidual-v2 --out-dir /path/to/exported-embeddings
-```
-
-The full checkpoint registry and provenance notes are in `checkpoints/README.md`.
