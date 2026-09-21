@@ -6,14 +6,18 @@ This guide describes the complete local workflow for the public release. The rep
 
 Using Conda:
 
-    conda env create -f environment.yml
-    conda activate graph-residual
+```bash
+conda env create -f environment.yml
+conda activate graph-residual
+```
 
 Or using an existing Python environment:
 
-    python -m pip install -r requirements.txt
+```bash
+python -m pip install -r requirements.txt
+```
 
-The implementation was authored for Python 3.10 and uses PyTorch, NumPy, pandas, scikit-learn, matplotlib, and PyYAML.
+The implementation was authored for Python 3.10 and uses PyTorch, NumPy, pandas, scikit-learn, matplotlib, PyYAML, and `huggingface_hub` when downloading a published checkpoint.
 
 ## 2. Prepare data outside the repository
 
@@ -30,9 +34,9 @@ Do not commit ClinVar, BioGRID, Reactome, raw sequences, or other licensed data.
 
 Run the input checks before training:
 
-    python scripts/inspect_inputs.py \
-      --project_dir /path/to/project-assets \
-      --out_dir /path/to/project-assets/work/input_audit
+```bash
+python scripts/inspect_inputs.py --project_dir /path/to/project-assets --out_dir /path/to/project-assets/work/input_audit
+```
 
 The audit checks embedding shapes, finite values, node-ID alignment, edge bounds, and benchmark coverage.
 
@@ -40,9 +44,9 @@ The audit checks embedding shapes, finite values, node-ID alignment, edge bounds
 
 Use the small relation-preserving sweep before a full run:
 
-    python scripts/run_sanity.py \
-      --project_dir /path/to/project-assets \
-      --out_dir /path/to/project-assets/work/graph_residual_sanity
+```bash
+python scripts/run_sanity.py --project_dir /path/to/project-assets --out_dir /path/to/project-assets/work/graph_residual_sanity
+```
 
 Review sanity_selection.json, relation coverage, cosine preservation, and residual-to-ESM norm ratio.
 
@@ -50,7 +54,9 @@ Review sanity_selection.json, relation coverage, cosine preservation, and residu
 
 Copy configs/esm2.yaml and replace PROJECT_ROOT with the project-assets directory. The portable wrapper resolves that placeholder to the release root; for external assets, pass a config containing the absolute or relative asset directory explicitly.
 
-    python scripts/train.py --config configs/esm2.yaml
+```bash
+python scripts/train.py --config configs/esm2.yaml
+```
 
 Important controls are graph_dim=64, hidden_dim=256, output_dim=640, learning_rate=0.001, batch_size=1024, epochs=20, and seed=42. The training code writes metrics and checkpoints to the configured output directory.
 
@@ -60,12 +66,17 @@ AMPLIFY-120M is kept as an independent backbone family. Use configs/amplify.yaml
 
 ## 7. Export embeddings
 
-Keep a reviewed checkpoint outside Git, then export embeddings:
+The verified ESM-2 V2 checkpoint is published at [Marcochris/ESM2-GraphResidual-v2](https://huggingface.co/Marcochris/ESM2-GraphResidual-v2). The exporter can download its `graph_residual_v2.pt` file automatically:
 
-    python scripts/export_embeddings.py \
-      --project-dir /path/to/project-assets \
-      --checkpoint /path/to/checkpoint.pt \
-      --out-dir /path/to/exported-embeddings
+```bash
+python scripts/export_embeddings.py --project-dir /path/to/project-assets --checkpoint-repo Marcochris/ESM2-GraphResidual-v2 --out-dir /path/to/exported-embeddings
+```
+
+Alternatively, keep a reviewed checkpoint outside Git and pass its local path:
+
+```bash
+python scripts/export_embeddings.py --project-dir /path/to/project-assets --checkpoint /path/to/checkpoint.pt --out-dir /path/to/exported-embeddings
+```
 
 The exporter writes node mapping, fusion-mode metadata, float16 embeddings, and an integrity report.
 
@@ -73,15 +84,15 @@ The exporter writes node mapping, fusion-mode metadata, float16 embeddings, and 
 
 Mutation–PTM ranking:
 
-    python scripts/evaluate.py mutation_ptm \
-      --project_dir /path/to/project-assets \
-      --out_dir /path/to/ranking-evaluation
+```bash
+python scripts/evaluate.py mutation_ptm --project_dir /path/to/project-assets --out_dir /path/to/ranking-evaluation
+```
 
 ClinVar-style classification:
 
-    python scripts/evaluate.py clinvar \
-      --project_dir /path/to/project-assets \
-      --out_dir /path/to/clinvar-evaluation
+```bash
+python scripts/evaluate.py clinvar --project_dir /path/to/project-assets --out_dir /path/to/clinvar-evaluation
+```
 
 The packaged evaluators reserve the test split for final reporting and select thresholds/models on validation data.
 
@@ -89,7 +100,9 @@ The packaged evaluators reserve the test split for final reporting and select th
 
 The release includes only the tabular source data. Picture outputs are intentionally not committed:
 
-    python scripts/reproduce_figures.py
+```bash
+python scripts/reproduce_figures.py
+```
 
 Generated images appear under figures/reproduced/ locally. The archived selective PPI audit recorded NO_STABLE_GAIN against its controls; generated figures document that evaluation context and should not be read as a performance guarantee.
 
