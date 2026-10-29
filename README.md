@@ -150,10 +150,6 @@ Use the following placeholder until the associated manuscript or preprint record
 
 Insert the final authors, venue, DOI, and URL only when verified.
 
-## Limitations
-
-The current implementation depends on available graph context and prepared relation-specific assets. It is not presented as a generic unseen-node inductive model or as a universal predictor.
-
 ## Path and command audits
 
 See [`audit/README_PATH_CHECK.md`](audit/README_PATH_CHECK.md) and [`audit/README_COMMAND_CHECK.md`](audit/README_COMMAND_CHECK.md) for the release checks.
